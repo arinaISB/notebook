@@ -21,16 +21,16 @@ class NotebookController extends Controller
     {
         $validated = $request->validated();
 
+        $validator = Validator::make($validated, [
+            'phone' => 'unique:notebooks',
+            'email' => 'unique:notebooks',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()->first()]);
+        }
+
         try {
-            $validator = Validator::make($request->all(), [
-                'phone' => 'required|string|unique:notebooks',
-                'email' => 'required|email|unique:notebooks',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json(['error' => $validator->errors()->first()]);
-            }
-
             DB::transaction(function () use ($validated)
             {
                 Notebook::create($validated);
