@@ -20,14 +20,14 @@ class NotebookFactory extends Factory
     public function definition(): array
     {
         return [
-            'last_name' => $this->faker->lastName,
-            'first_name' => $this->faker->firstName,
-            'father_name' => $this->faker->firstNameMale,
+            'last_name'    => $this->faker->lastName,
+            'first_name'   => $this->faker->firstName,
+            'father_name'  => $this->faker->firstNameMale,
             'company_name' => $this->faker->company,
-            'phone' => $this->faker->phoneNumber,
-            'email' => $this->faker->unique()->safeEmail,
-            'birth_date' => $this->faker->date,
-            'photo' => $this->faker->imageUrl(200 ,200),
+            'phone'        => $this->faker->phoneNumber,
+            'email'        => $this->faker->unique()->safeEmail,
+            'birth_date'   => $this->faker->date,
+            'photo'        => $this->faker->imageUrl(200 ,200),
         ];
     }
 }

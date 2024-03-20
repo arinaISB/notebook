@@ -19,4 +19,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/notebook', [NotebookController::class, 'notebook'])->name('notebook');
+Route::get('/notebook', [NotebookController::class, 'getAll']);
+Route::get('/notebook/create', [NotebookController::class, 'getCreateForm']);
+Route::post('/notebook/create', [NotebookController::class, 'create'])->name('notebook.create');
+
