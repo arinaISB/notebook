@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             'phone'        => 'required|string',
             'email'        => 'required|email',
             'birth_date'   => 'nullable|date',
-            'photo'        => 'nullable|string',
+            'photo'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
