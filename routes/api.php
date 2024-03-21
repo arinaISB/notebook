@@ -14,12 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::get('/v1/notebook', [NotebookController::class, 'getAll']);
-Route::post('/v1/notebook/create/{photoId?}', [NotebookController::class, 'create'])->name('notebook.create');
-Route::post('/v1/notebook/photo', [NotebookController::class, 'uploadPhoto'])->name('notebook.upload');
-Route::patch('/v1/notebook/{id}', [NotebookController::class, 'update']);
+Route::post('/v1/notebook', [NotebookController::class, 'create']);
+Route::get('/v1/notebook/{id}', [NotebookController::class, 'show']);
+Route::post('/v1/notebook/photo', [NotebookController::class, 'uploadPhoto']);
+Route::post('/v1/notebook/{id}', [NotebookController::class, 'update']);
 Route::delete('/v1/notebook/{id}', [NotebookController::class, 'delete']);

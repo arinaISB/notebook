@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageService
 {
-    public function uploadAvatar(UploadedFile $file): JsonResponse
+    public function uploadAvatar(UploadedFile $file)
     {
         $filename = $file->hashName();
         $extension = $file->extension();
@@ -24,7 +24,7 @@ class ImageService
                 'path' => $path,
             ]);
 
-            return response()->json($image->id);
+            return $image;
         } catch (\Throwable $exception) {
             if ($path && Storage::disk('public')->exists($path))
             {
