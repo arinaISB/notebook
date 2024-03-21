@@ -28,6 +28,7 @@ class NotebookController extends Controller
             return response()->json($notebook);
         } catch (\Throwable $exception) {
             Log::error("Notebook not created: {$exception->getMessage()}");
+
             return response()->json(['error' => 'An error occurred while creating the notebook.']);
         }
     }
@@ -36,6 +37,7 @@ class NotebookController extends Controller
     {
         try {
             $notebook = Notebook::findOrFail($id);
+
             return response()->json($notebook);
         } catch (\Throwable $exception) {
             Log::error("Failed to find notebook: {$exception->getMessage()}");
