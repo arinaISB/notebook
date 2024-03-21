@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable()->unique();
             $table->string('email')->unique();
             $table->date('birth_date')->nullable();
-            $table->string('photo')->nullable();
+            $table->foreignId('image_id')->nullable()->constrained('images')->onDelete('cascade');
             $table->timestamps();
         });
     }

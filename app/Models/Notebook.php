@@ -18,9 +18,13 @@ class Notebook extends Model
         'phone',
         'email',
         'birth_date',
-        'photo',
+        'image_id',
     ];
 
     protected string $factory = NotebookFactory::class;
 
+    public function image()
+    {
+        return $this->belongsTo(Image::class, 'image_id');
+    }
 }

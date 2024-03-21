@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\NotebookController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +19,6 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/v1/notebook', [NotebookController::class, 'getAll']);
-Route::get('/v1/notebook/create', [NotebookController::class, 'getCreateForm']);
-Route::post('/v1/notebook', [NotebookController::class, 'create'])->name('notebook.create');
+Route::post('/v1/notebook/create/{photoId?}', [NotebookController::class, 'create'])->name('notebook.create');
+Route::post('/v1/notebook/photo', [NotebookController::class, 'uploadPhoto'])->name('notebook.upload');
 
