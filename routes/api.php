@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\NotebookController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/v1/notebook', [NotebookController::class, 'getAll']);
-Route::post('/v1/notebook', [NotebookController::class, 'create']);
-Route::get('/v1/notebook/{id}', [NotebookController::class, 'show']);
-Route::post('/v1/notebook/photo', [NotebookController::class, 'uploadPhoto']);
-Route::post('/v1/notebook/{id}', [NotebookController::class, 'update']);
-Route::delete('/v1/notebook/{id}', [NotebookController::class, 'delete']);
+Route::get('/v1/notebooks', [NotebookController::class, 'getAll']);
+Route::post('/v1/notebooks', [NotebookController::class, 'create']);
+Route::get('/v1/notebooks/{id}', [NotebookController::class, 'getOneById']);
+Route::post('/v1/notebooks/photo', [ImageUploadController::class, 'upload']);
+Route::patch('/v1/notebooks/{id}', [NotebookController::class, 'update']);
+Route::delete('/v1/notebooks/{id}', [NotebookController::class, 'delete']);

@@ -4,18 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRequest;
 use App\Http\Requests\UpdateRequest;
-use App\Http\Requests\UploadRequest;
 use App\Models\Notebook;
-use App\Services\ImageService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 
 class NotebookController extends Controller
 {
     public function getAll(): JsonResponse
     {
         $notebooks = Notebook::paginate(2);
-        return response()->json($notebooks);
+        return response()->json($notebooks, 200);
     }
 
     public function create(CreateRequest $request): JsonResponse
@@ -25,39 +22,20 @@ class NotebookController extends Controller
         try {
             $notebook = Notebook::create($validatedData);
 
-            return response()->json($notebook);
-        } catch (\Throwable $exception) {
-            Log::error("Notebook not created: {$exception->getMessage()}");
-
-            return response()->json(['error' => 'An error occurred while creating the notebook.']);
+            return response()->json($notebook, 201);
+        } catch (\Throwable) {
+            return response()->json(['error' => 'An error occurred while creating the notebook.'], 400);
         }
     }
 
-    public function show($id): JsonResponse
+    public function getOneById(int $id): JsonResponse
     {
         try {
             $notebook = Notebook::findOrFail($id);
 
-            return response()->json($notebook);
-        } catch (\Throwable $exception) {
-            Log::error("Failed to find notebook: {$exception->getMessage()}");
-
-            return response()->json(['error' => 'Notebook not found.']);
-        }
-    }
-
-    public function uploadPhoto(UploadRequest $request, ImageService $imageService): JsonResponse
-    {
-        $validatedPhoto = $request->validated();
-
-        try {
-            $image = isset($validatedPhoto['photo']) ? $imageService->uploadAvatar($validatedPhoto['photo']) : null;
-
-            return response()->json($image);
-        } catch (\Throwable $exception) {
-            Log::error("Failed to upload photo: {$exception->getMessage()}");
-
-            return response()->json(['error' => 'An error occurred while uploading the photo']);
+            return response()->json($notebook, 200);
+        } catch (\Throwable) {
+            return response()->json(['error' => 'Notebook not found.'], 404);
         }
     }
 
@@ -68,14 +46,14 @@ class NotebookController extends Controller
         $notebook = Notebook::findOrFail($id);
         $notebook->update($validatedData);
 
-        return response()->json($notebook);
+        return response()->json($notebook, 200);
     }
 
-    public function delete(int $id): JsonResponse
+    public function delete(int $id)
     {
-            $notebook = Notebook::findOrFail($id);
-            $notebook->delete();
+        $notebook = Notebook::findOrFail($id);
+        $notebook->delete();
 
-            return response()->json($notebook);
+        return response(status: 204);
     }
 }
