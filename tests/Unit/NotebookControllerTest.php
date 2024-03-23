@@ -4,12 +4,18 @@ namespace Tests\Unit;
 
 use App\Models\Notebook;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\TestCase;
-//use Tests\TestCase;
+use Tests\TestCase;
+use Faker\Factory as FakerFactory;
 
 class NotebookControllerTest extends TestCase
 {
     private $faker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->faker = FakerFactory::create();
+    }
 
     /**
      * A basic unit test example.
@@ -23,7 +29,10 @@ class NotebookControllerTest extends TestCase
     /** @test  */
     public function test_get_all()
     {
-        Notebook::factory()->count(3)->create();
+        $notebooks = Notebook::factory()->count(3)->create();
+        foreach ($notebooks as $notebook) {
+            var_dump($notebook->toArray());
+        }
 
         $response = $this->get('/api/v1/notebooks');
         $response->assertStatus(200);
@@ -36,10 +45,11 @@ class NotebookControllerTest extends TestCase
             'first_name' => $this->faker->firstName,
             'father_name' => $this->faker->firstNameMale,
             'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
         ];
 
         $response = $this->post('/api/v1/notebooks', $notebookData);
-        $response->assertStatus(201);
+        $response->assertStatus(200);
         $response->assertJson($notebookData);
     }
 

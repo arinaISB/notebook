@@ -22,7 +22,7 @@ class NotebookController extends Controller
         try {
             $notebook = Notebook::create($validatedData);
 
-            return response()->json($notebook, 201);
+            return response()->json($notebook, 200);
         } catch (\Throwable) {
             return response()->json(['error' => 'An error occurred while creating the notebook.'], 400);
         }
