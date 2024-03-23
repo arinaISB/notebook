@@ -6,6 +6,7 @@ use App\Http\Requests\CreateRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Models\Notebook;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class NotebookController extends Controller
 {
@@ -23,7 +24,8 @@ class NotebookController extends Controller
             $notebook = Notebook::create($validatedData);
 
             return response()->json($notebook, 200);
-        } catch (\Throwable) {
+        } catch (\Throwable $exception) {
+            Log::info($exception->getMessage());
             return response()->json(['error' => 'An error occurred while creating the notebook.'], 400);
         }
     }
@@ -43,7 +45,12 @@ class NotebookController extends Controller
     {
         $validatedData = $request->validated();
 
-        $notebook = Notebook::findOrFail($id);
+        $notebook = Notebook::find($id);
+
+        if (!$notebook) {
+            return response()->json(['error' => 'Notebook not found.'], 404);
+        }
+
         $notebook->update($validatedData);
 
         return response()->json($notebook, 200);
@@ -51,7 +58,12 @@ class NotebookController extends Controller
 
     public function delete(int $id)
     {
-        $notebook = Notebook::findOrFail($id);
+        $notebook = Notebook::find($id);
+
+        if (!$notebook) {
+            return response()->json(['error' => 'Notebook not found.'], 404);
+        }
+
         $notebook->delete();
 
         return response(status: 204);

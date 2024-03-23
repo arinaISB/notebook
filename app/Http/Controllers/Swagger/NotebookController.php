@@ -50,12 +50,12 @@ use App\Http\Controllers\Controller;
  *               @OA\Property(property="phone", type="string", nullable=true, example="1234567890"),
  *               @OA\Property(property="email", type="string", example="john.doe@example.com"),
  *               @OA\Property(property="birth_date", type="date", format="date", nullable=true, example="1990-01-01"),
- *               @OA\Property(property="image_id", type="integer", nullable=true, example=1),
+ *               @OA\Property(property="image_id", type="integer", example=null, nullable=true),
  *           ),
  *      ),
  *
  *      @OA\Response(
- *          response=201,
+ *          response=200,
  *          description="Notebook created successfully",
  *          @OA\JsonContent(
  *              type="object",
@@ -142,13 +142,13 @@ use App\Http\Controllers\Controller;
  *          description="Data to update the notebook",
  *          @OA\JsonContent(
  *              type="object",
- *              @OA\Property(property="last_name", type="string"),
- *              @OA\Property(property="first_name", type="string"),
- *              @OA\Property(property="father_name", type="string"),
- *              @OA\Property(property="company_name", type="string", nullable=true),
- *              @OA\Property(property="phone", type="string", nullable=true),
- *              @OA\Property(property="email", type="string"),
- *              @OA\Property(property="birth_date", type="date", format="date", nullable=true),
+ *              @OA\Property(property="last_name", type="string", example="Doe"),
+ *              @OA\Property(property="first_name", type="string", example="John"),
+ *              @OA\Property(property="father_name", type="string", example="Alex"),
+ *              @OA\Property(property="company_name", type="string", nullable=true, example="CDA"),
+ *              @OA\Property(property="phone", type="string", nullable=true, example="+7 962 713 9111"),
+ *              @OA\Property(property="email", type="string", example="john@example.com"),
+ *              @OA\Property(property="birth_date", type="date", format="date", example="1990-01-01", nullable=true),
  *         ),
  *      ),
  *

@@ -168,7 +168,7 @@
                                     },
                                     "image_id": {
                                         "type": "integer",
-                                        "example": 1,
+                                        "example": null,
                                         "nullable": true
                                     }
                                 },
@@ -178,7 +178,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Notebook created successfully",
                         "content": {
                             "application/json": {
@@ -403,28 +403,35 @@
                             "schema": {
                                 "properties": {
                                     "last_name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Doe"
                                     },
                                     "first_name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "John"
                                     },
                                     "father_name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Alex"
                                     },
                                     "company_name": {
                                         "type": "string",
+                                        "example": "CDA",
                                         "nullable": true
                                     },
                                     "phone": {
                                         "type": "string",
+                                        "example": "+7 962 713 9111",
                                         "nullable": true
                                     },
                                     "email": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "john@example.com"
                                     },
                                     "birth_date": {
                                         "type": "string",
                                         "format": "date",
+                                        "example": "1990-01-01",
                                         "nullable": true
                                     }
                                 },
